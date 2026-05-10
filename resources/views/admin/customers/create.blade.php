@@ -1,0 +1,5 @@
+@extends('layouts.admin')
+@section('page-title', 'Tambah Customer')
+@section('content')
+<div class="card panel-card"><div class="card-body"><form method="POST" action="{{ route('admin.customers.store') }}">@csrf<div class="mb-3"><label class="form-label">Nama Customer</label><input type="text" name="customer_name" value="{{ old('customer_name') }}" class="form-control @error('customer_name') is-invalid @enderror">@error('customer_name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div><div class="mb-3"><label class="form-label">Telepon</label><input type="text" name="phone" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror">@error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror</div><div class="mb-3"><label class="form-label">Alamat</label><textarea name="address" rows="3" class="form-control @error('address') is-invalid @enderror">{{ old('address') }}</textarea>@error('address')<div class="invalid-feedback">{{ $message }}</div>@enderror</div><button class="btn btn-primary">Simpan</button></form></div></div>
+@endsection

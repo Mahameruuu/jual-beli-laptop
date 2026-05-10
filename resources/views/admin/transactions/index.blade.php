@@ -1,0 +1,6 @@
+@extends('layouts.admin')
+@section('page-title', 'Transaksi')
+@section('content')
+<div class="d-flex justify-content-end mb-3"><a href="{{ route('admin.transactions.create') }}" class="btn btn-primary">Tambah Transaksi</a></div>
+<div class="card panel-card"><div class="card-body"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>ID</th><th>Customer</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead><tbody>@forelse($transactions as $transaction)<tr><td>#{{ $transaction->id }}</td><td>{{ $transaction->customer->customer_name }}</td><td>{{ $transaction->transaction_date->format('d M Y') }}</td><td>Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</td><td><span class="badge text-bg-primary text-capitalize">{{ $transaction->status }}</span></td><td class="d-flex gap-2"><a href="{{ route('admin.transactions.show', $transaction) }}" class="btn btn-sm btn-outline-secondary">Detail</a><form method="POST" action="{{ route('admin.transactions.destroy', $transaction) }}">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus transaksi ini?')">Hapus</button></form></td></tr>@empty<tr><td colspan="6" class="text-center text-secondary">Belum ada transaksi.</td></tr>@endforelse</tbody></table></div><div>{{ $transactions->links() }}</div></div></div>
+@endsection

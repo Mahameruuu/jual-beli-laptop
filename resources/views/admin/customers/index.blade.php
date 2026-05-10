@@ -1,0 +1,6 @@
+@extends('layouts.admin')
+@section('page-title', 'Customer')
+@section('content')
+<div class="d-flex justify-content-end mb-3"><a href="{{ route('admin.customers.create') }}" class="btn btn-primary">Tambah Customer</a></div>
+<div class="card panel-card"><div class="card-body"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>#</th><th>Nama</th><th>Telepon</th><th>Alamat</th><th>Aksi</th></tr></thead><tbody>@forelse($customers as $customer)<tr><td>{{ $loop->iteration + ($customers->currentPage() - 1) * $customers->perPage() }}</td><td>{{ $customer->customer_name }}</td><td>{{ $customer->phone }}</td><td>{{ $customer->address }}</td><td class="d-flex gap-2"><a href="{{ route('admin.customers.edit', $customer) }}" class="btn btn-sm btn-outline-primary">Edit</a><form method="POST" action="{{ route('admin.customers.destroy', $customer) }}">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus customer ini?')">Hapus</button></form></td></tr>@empty<tr><td colspan="5" class="text-center text-secondary">Data customer belum ada.</td></tr>@endforelse</tbody></table></div><div>{{ $customers->links() }}</div></div></div>
+@endsection
